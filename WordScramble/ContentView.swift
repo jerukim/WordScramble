@@ -9,8 +9,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    static var fileContents: String {
+            if let fileUrl = Bundle.main.url(forResource: "start", withExtension: "txt") {
+                if let fileContent = try? String(contentsOf: fileUrl) {
+                    return fileContent
+                }
+            }
+        return "file could not be read"
+    }
+    
+    private var words: [String] {
+        return ContentView.fileContents.components(separatedBy: "\n")
+    }
+    
     var body: some View {
-        Text("Hello, World!")
+        List(words, id: \.self) {
+            Text($0.trimmingCharacters(in: .whitespacesAndNewlines))
+        }
     }
 }
 
