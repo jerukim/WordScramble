@@ -31,6 +31,11 @@ struct ContentView: View {
                     Image(systemName: "\($0.count).circle")
                     Text($0)
                 }
+                
+                Spacer()
+                
+                Text("Score: \(calculateScore())")
+                    .padding()
             }
             .navigationBarTitle(rootWord)
             .navigationBarItems(trailing: Button(action: startGame) { Text("New Game")})
@@ -108,6 +113,12 @@ struct ContentView: View {
         errorTitle = title
         errorMessage = message
         showingError = true
+    }
+    
+    func calculateScore() -> Int {
+        usedWords.reduce(0) { score, word in
+            score + word.count
+        }
     }
     
     func startGame() {
