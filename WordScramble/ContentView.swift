@@ -54,12 +54,22 @@ struct ContentView: View {
         }
         
         guard isPossible(word: answer) else {
-            wordError(title: "Word not recognized", message: "Are you dumb?")
+            wordError(title: "Word not valid", message: "Are you dumb?")
             return
         }
         
         guard isReal(word: answer) else {
             wordError(title: "Word not real", message: "Try using an actual word")
+            return
+        }
+        
+        guard answer.count > 3 else {
+            wordError(title: "Word is too short", message: "Make a longer word")
+            return
+        }
+        
+        guard answer != rootWord else {
+            wordError(title: "Same as starter word", message: "Use something else")
             return
         }
         
